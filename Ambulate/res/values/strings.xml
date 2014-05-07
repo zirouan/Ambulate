@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ambulate</string>
+    <string name="pesquisar">Pesquisar</string>
+    <string name="add">Add</string>
+    
+    <string name="id">ID:</string>
+    <string name="nome">Nome:</string>            
+    
+    <string name="coisas">Coisas</string>    
+    
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+</resources>
