@@ -6,7 +6,7 @@ Ambulate
 Ambulate "Caminhada"
 
 (latim ambulans, -antis, particípio presente de ambulo, -are, ir em volta, dar uma volta, passear, caminhar, avançar, percorrer)
-Ambulate é um projeto open source que tem como objetivo crescer juntamente com os membros do grupo "Android Ceará [o-O]".
+Ambulate é um projeto open source que tem como objetivo crescer juntamente com os membros do grupo <a href="https://www.facebook.com/groups/androidceara/">Android Ceará [o-O]</a>.
 
 Versão 1.0 (ATUAL)
 
