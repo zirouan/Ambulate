@@ -1,6 +1,8 @@
 Ambulate
 ========
 
+<img src="https://raw.githubusercontent.com/rudsonlive/Ambulate/master/img/ic_ambulate.png"> </img>
+
 Ambulate "Caminhada"
 
 (latim ambulans, -antis, particípio presente de ambulo, -are, ir em volta, dar uma volta, passear, caminhar, avançar, percorrer)
