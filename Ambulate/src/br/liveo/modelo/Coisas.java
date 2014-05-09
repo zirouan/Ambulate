@@ -64,5 +64,4 @@ public class Coisas implements Parcelable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
 }

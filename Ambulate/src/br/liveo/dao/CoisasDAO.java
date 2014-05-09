@@ -2,11 +2,13 @@ package br.liveo.dao;
 
 import java.util.ArrayList;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import br.liveo.modelo.Coisas;
+import br.liveo.utils.Constantes;
 
 public class CoisasDAO {
 	
@@ -56,6 +58,21 @@ public class CoisasDAO {
 		}			
 	}
 
+	public void salvarCoisa(String nome){
+				
+		try {
+			ContentValues colunas = new ContentValues();
+			colunas.put(Constantes.NOME, nome);
+			
+			abrirConexao();
+			db.insertOrThrow(Constantes.TABELA_COISAS, Constantes.BANCO, colunas);
+		} catch (Exception e) {
+			e.getMessage();
+		}finally{
+			fecharTodasConexoes();
+		}
+	}
+	
 	public ArrayList<Coisas> obterTudoCoisas() {
 		// TODO Auto-generated method stub
 		ArrayList<Coisas> arrayListCoisas = null;
@@ -63,7 +80,8 @@ public class CoisasDAO {
 		StringBuilder qrBuilder = new StringBuilder();
 		
 		qrBuilder.append(" SELECT ID, NOME ");
-		qrBuilder.append(" FROM COISAS" );
+		qrBuilder.append(" FROM COISAS " );
+		qrBuilder.append(" ORDER BY ID ASC " );		
 
 		try {
 

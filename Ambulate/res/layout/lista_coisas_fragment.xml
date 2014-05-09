@@ -3,9 +3,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+	<RelativeLayout
+        android:id="@+id/layout_sem_registro"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/branco"
+        android:visibility="visible" >
+
+        <TextView
+            android:id="@+id/txtSem_registro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:drawableRight="@drawable/ic_action_new_black"
+            android:gravity="center"
+            android:text="@string/sem_registros"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/txtSem_registro_continuacao"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtSem_registro"
+            android:gravity="center"
+            android:text="@string/sem_registros_continuacao"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>   
+     
+    <RelativeLayout
+        android:id="@+id/layout_progressBar"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/layout_sem_registro"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+    
     <ListView
         android:id="@+id/lista"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_progressBar">
     </ListView>
 </RelativeLayout>

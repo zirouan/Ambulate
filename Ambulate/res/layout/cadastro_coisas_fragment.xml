@@ -1,0 +1,83 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/branco" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:background="@color/cinza" >
+
+            <TextView
+                android:id="@+id/txtCadastro_Titulo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/cadastro_coisas"
+                android:textColor="@color/preto"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/txtCadastro_Informacao"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/txtCadastro_Titulo"
+                android:layout_below="@+id/txtCadastro_Titulo"
+                android:text="@string/informativo_coisas"
+                android:textSize="13sp"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:id="@+id/iconEditarCadastro"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:contentDescription="@string/vazio"
+                android:src="@drawable/ic_launcher" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relaCabecalho"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/branco" >
+
+            <TextView
+                android:id="@+id/txtCadastro_Nome"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/nome"
+                android:textAllCaps="true"
+                android:textStyle="bold" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/edtNome"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/txtCadastro_Nome"
+                android:layout_below="@+id/txtCadastro_Nome"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="2dp"
+                android:hint="@string/nome"
+                android:inputType="textCapWords"
+                android:maxLength="30"
+                android:singleLine="true" >
+            </EditText>
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>

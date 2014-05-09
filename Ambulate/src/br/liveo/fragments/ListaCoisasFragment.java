@@ -2,30 +2,35 @@ package br.liveo.fragments;
 
 import java.util.ArrayList;
 
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import br.liveo.adapter.CoisasAdapter;
+import br.liveo.ambulate.CadastroCoisasActivity;
 import br.liveo.ambulate.R;
+import br.liveo.asynctask.AmbulateFragment;
 import br.liveo.dao.CoisasDAO;
+import br.liveo.interfaces.IFragment;
 import br.liveo.modelo.Coisas;
 import br.liveo.utils.Constantes;
 
-public class ListaCoisasFragment extends Fragment {
+public class ListaCoisasFragment extends AmbulateFragment implements IFragment {
 	
 	private ListView lista;
 	private CoisasAdapter coisasAdapter;
+	private RelativeLayout layout_sem_registro;	
 	private ArrayList<Coisas> listaCoisas = new ArrayList<Coisas>();
 	
 	@Override
@@ -33,9 +38,10 @@ public class ListaCoisasFragment extends Fragment {
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub		
 				
-		View rootView = inflater.inflate(R.layout.lista_coisas_fragment, container, false);		
-		lista = (ListView) rootView.findViewById(R.id.lista);		
-		
+		View rootView = inflater.inflate(R.layout.lista_coisas_fragment, container, false);	
+
+		lista = (ListView) rootView.findViewById(R.id.lista);						
+		layout_sem_registro = (RelativeLayout) rootView.findViewById(R.id.layout_sem_registro);
 		rootView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT ));		
 		return rootView;
 	}
@@ -46,17 +52,11 @@ public class ListaCoisasFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		setHasOptionsMenu(true);
 		
-		if (savedInstanceState != null){
-			
-			listaCoisas = savedInstanceState.getParcelableArrayList(Constantes.OBJ_COISAS);
-			
-			if (listaCoisas != null && listaCoisas.size() > 0){
-				coisasAdapter = new CoisasAdapter(getActivity(), listaCoisas);
-				lista.setAdapter(coisasAdapter);
-			}
-			
+		if (savedInstanceState != null){			
+			listaCoisas = savedInstanceState.getParcelableArrayList(Constantes.OBJ_COISAS);			
+			resultado();						
 		}else{
-			new ExecutarConsultaCoisas().execute();
+			startTransacao(this, R.string.msg_erro_carregar_lista);
 		}
 	}
 	
@@ -82,6 +82,19 @@ public class ListaCoisasFragment extends Fragment {
 	    searchView.setOnQueryTextListener(onQuerySearchView);		
 	}	
 	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		
+		switch (item.getItemId()) {
+		case R.id.menu_adicionar:
+			startActivityForResult(new Intent(getActivity(), CadastroCoisasActivity.class), 0);
+			break;
+		}
+		
+		return true;
+	}
+	
 	private OnQueryTextListener onQuerySearchView = new OnQueryTextListener() {
 		
 		@Override
@@ -97,25 +110,32 @@ public class ListaCoisasFragment extends Fragment {
 			return false;
 		}
 	};
-	
-	private class ExecutarConsultaCoisas extends AsyncTask<Void, Void, ArrayList<Coisas>>{
 		
-		@Override
-		protected ArrayList<Coisas> doInBackground(Void... params) {
-			// TODO Auto-generated method stub
-			return CoisasDAO.getInstance(getActivity()).obterTudoCoisas();
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);		
+		if (resultCode == 1){ // no futuro isso irá sofre alterações
+			startTransacao(this, R.string.msg_erro_carregar_lista);			
 		}
+	}
+
+	@Override
+	public void executar() throws Exception {
+		// TODO Auto-generated method stub
+		listaCoisas = CoisasDAO.getInstance(getActivity()).obterTudoCoisas();		
+	}
+
+	@Override
+	public void resultado() {
+		// TODO Auto-generated method stub
+		layout_sem_registro.setVisibility(RelativeLayout.GONE);	
 		
-		@Override
-		protected void onPostExecute(ArrayList<Coisas> result) {
-			// TODO Auto-generated method stub
-			super.onPostExecute(result);
-			
-			if (result != null && result.size() > 0){
-				listaCoisas = result;
-				coisasAdapter = new CoisasAdapter(getActivity(), result);
-				lista.setAdapter(coisasAdapter);
-			}
-		}
+		if (listaCoisas != null && listaCoisas.size() > 0){
+			coisasAdapter = new CoisasAdapter(getActivity(), listaCoisas);
+			lista.setAdapter(coisasAdapter);
+		}else{
+			layout_sem_registro.setVisibility(RelativeLayout.VISIBLE);			
+		}						
 	}
 }
